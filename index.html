@@ -385,6 +385,52 @@
       color: var(--text-dim);
     }
 
+    .map-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .map-frame {
+      width: 100%;
+      height: 380px;
+      border: 0;
+      display: block;
+      background: var(--bg2);
+    }
+    .map-meta {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 14px;
+      padding: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .map-copy {
+      font-size: 14px;
+      color: var(--text-dim);
+    }
+    .map-copy strong {
+      color: var(--text);
+    }
+    .map-list {
+      display: grid;
+      gap: 8px;
+    }
+    .map-item {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+    .map-item strong {
+      display: block;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
     .mini-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -426,9 +472,10 @@
     }
 
     @media (max-width: 720px) {
-      .cards, .mini-grid, .flight-cards { grid-template-columns: 1fr; }
+      .cards, .mini-grid, .flight-cards, .map-meta { grid-template-columns: 1fr; }
       .section-title { font-size: 28px; }
       .stop-name { font-size: 20px; }
+      .map-frame { height: 320px; }
     }
   </style>
 </head>
@@ -436,6 +483,7 @@
   <nav class="nav">
     <div class="nav-inner">
       <a href="#route">Route</a>
+      <a href="#map">Map</a>
       <a href="#stays">Stay</a>
       <a href="#cafes">Cafes</a>
       <a href="#bars">Drinks</a>
@@ -504,6 +552,35 @@
         <div class="overview-label">How to use this</div>
         <div class="overview-title">Think in layers, not checklists</div>
         <div class="overview-text">The only fixed pieces are your Sanur base and one board-sport morning. Everything else is modular. If you wake up lazy, do Sanur. If your energy is good, take one clean outing to Jimbaran, Uluwatu, or Ubud, then come back.</div>
+      </div>
+    </section>
+
+    <section class="section" id="map">
+      <div class="section-label">Visual anchor</div>
+      <h2 class="section-title">See the surf zone before you book</h2>
+      <div class="map-card">
+        <iframe
+          class="map-frame"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=Sanur+Surf+School+Jl+Pantai+Merta+Sari+Sanur+Bali&z=15&output=embed"
+          title="Map of Sanur Surf School and the south Sanur hotel zone"></iframe>
+        <div class="map-meta">
+          <div class="map-copy">
+            This map is centered on <strong>Sanur Surf School</strong> at the Mertasari side of Sanur. The better hotel picks for this version of the trip sit on the same south Sanur strip, so you can quickly see whether you want the <strong>closest luxury option</strong> or the <strong>best sub-US$200 value</strong>.
+            <div class="pills" style="margin-top:10px;">
+              <a class="pill" href="https://www.google.com/maps/search/?api=1&query=Sanur+Surf+School+Jl+Pantai+Merta+Sari" target="_blank" rel="noopener noreferrer">Open surf school map</a>
+              <a class="pill" href="https://www.google.com/maps/dir/Ngurah+Rai+International+Airport/Hyatt+Regency+Bali+Sanur" target="_blank" rel="noopener noreferrer">Airport → Hyatt</a>
+              <a class="pill" href="https://www.google.com/maps/dir/Ngurah+Rai+International+Airport/Maya+Sanur+Resort+and+Spa" target="_blank" rel="noopener noreferrer">Airport → Maya</a>
+            </div>
+          </div>
+          <div class="map-list">
+            <div class="map-item"><strong>Hyatt Regency Bali</strong>2.4 km to surf school, around 14.7 km from DPS.</div>
+            <div class="map-item"><strong>Maya Sanur Resort &amp; Spa</strong>1.9 km to surf school, around 15 km from DPS.</div>
+            <div class="map-item"><strong>InterContinental Bali Sanur Resort</strong>1.1 km to surf school, around 14.4 km from DPS.</div>
+            <div class="map-item"><strong>Andaz Bali</strong>2.5 km to surf school, usually the pretty but pricier one.</div>
+          </div>
+        </div>
       </div>
     </section>
 
