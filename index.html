@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bali · Sanur Reset · Apr 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f5f0e8;
+      --bg2: #ede7db;
+      --surface: #ffffff;
+      --border: #d4cec2;
+      --text: #1a1a1a;
+      --text-dim: #6b6560;
+      --accent: #c96b3b;
+      --accent-soft: #f3e0d3;
+      --sea: #196d74;
+      --sea-soft: #d5ecee;
+      --leaf: #437154;
+      --leaf-soft: #dbe9dd;
+      --gold: #a77b2d;
+      --gold-soft: #f4e7ca;
+      --purple: #6a5a7a;
+      --purple-soft: #e8e0f0;
+      --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-lg: 0 6px 18px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Instrument Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(245,240,232,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(212,206,194,0.7);
+      overflow-x: auto;
+    }
+    .nav-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      gap: 4px;
+      padding: 0 16px;
+    }
+    .nav a {
+      text-decoration: none;
+      color: var(--text-dim);
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      padding: 14px 12px;
+      border-bottom: 2px solid transparent;
+    }
+    .nav a:hover, .nav a.active { color: var(--text); border-bottom-color: var(--accent); }
+
+    .hero {
+      background: linear-gradient(160deg, #18424c 0%, #0f2b31 100%);
+      color: #fff;
+      padding: 56px 20px 34px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 78% 22%, rgba(201,107,59,0.30), transparent 34%),
+        radial-gradient(circle at 18% 82%, rgba(120,180,160,0.22), transparent 32%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .hero-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.56);
+      margin-bottom: 14px;
+    }
+    .hero h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(46px, 10vw, 82px);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+    .hero h1 span { color: #f2b36a; }
+    .hero-sub {
+      max-width: 640px;
+      font-size: 16px;
+      color: rgba(255,255,255,0.76);
+      margin-bottom: 24px;
+    }
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+    .hero-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.06);
+      border-radius: 999px;
+      padding: 6px 10px;
+      color: rgba(255,255,255,0.84);
+    }
+    .flight-cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .flight-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px;
+      padding: 16px;
+    }
+    .flight-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 6px;
+    }
+    .flight-route {
+      font-family: 'Fraunces', serif;
+      font-size: 19px;
+      margin-bottom: 4px;
+    }
+    .flight-detail {
+      font-size: 13px;
+      color: rgba(255,255,255,0.66);
+    }
+
+    .main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 20px 64px;
+    }
+
+    .overview {
+      display: grid;
+      gap: 16px;
+      margin-top: 28px;
+    }
+    .overview-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--gold);
+      border-radius: 14px;
+      padding: 18px 20px;
+      box-shadow: var(--shadow);
+    }
+    .overview-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .overview-title {
+      font-family: 'Fraunces', serif;
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+    .overview-text {
+      font-size: 14px;
+      color: var(--text-dim);
+      margin-bottom: 10px;
+    }
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-dim);
+      box-shadow: var(--shadow);
+      text-decoration: none;
+    }
+    .pill:hover { color: var(--text); }
+
+    .section {
+      padding-top: 44px;
+    }
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 4px;
+    }
+    .section-title {
+      font-family: 'Fraunces', serif;
+      font-size: 34px;
+      line-height: 1.08;
+      margin-bottom: 22px;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 30px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      bottom: 10px;
+      left: 10px;
+      width: 2px;
+      background: var(--border);
+    }
+    .stop {
+      position: relative;
+      padding-bottom: 22px;
+    }
+    .stop:last-child { padding-bottom: 0; }
+    .stop-dot {
+      position: absolute;
+      top: 4px;
+      left: -30px;
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      background: var(--surface);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+    .stop-dot::after {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+    .stop-time {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-bottom: 4px;
+    }
+    .stop-name {
+      font-family: 'Fraunces', serif;
+      font-size: 22px;
+      margin-bottom: 6px;
+    }
+    .stop-name a { text-decoration: none; }
+    .stop-name a:hover { text-decoration: underline; }
+    .stop-desc {
+      font-size: 14px;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+    }
+    .stop-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .collapsible {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+    .collapse-trigger {
+      width: 100%;
+      border: 0;
+      background: transparent;
+      padding: 18px 18px 16px;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .collapse-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Fraunces', serif;
+      font-size: 22px;
+    }
+    .collapse-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .collapse-body {
+      padding: 0 18px 18px;
+      display: block;
+    }
+    .collapsible[data-collapsed="true"] .collapse-body { display: none; }
+    .chev {
+      font-size: 18px;
+      color: var(--text-dim);
+      transition: transform 0.2s ease;
+    }
+    .collapsible[data-collapsed="false"] .chev { transform: rotate(180deg); }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      background: #fff;
+    }
+    .card-name {
+      font-family: 'Fraunces', serif;
+      font-size: 18px;
+      margin-bottom: 6px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-name a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .card-name a:hover { text-decoration: underline; }
+    .card-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      padding: 4px 7px;
+      border-radius: 999px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .badge-sanur { background: var(--sea-soft); color: var(--sea); }
+    .badge-south { background: var(--gold-soft); color: var(--gold); }
+    .badge-ubud { background: var(--leaf-soft); color: var(--leaf); }
+    .badge-seminyak { background: var(--purple-soft); color: var(--purple); }
+    .badge-hotel { background: var(--accent-soft); color: var(--accent); }
+    .card-desc {
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .mini {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+    .mini-title {
+      font-family: 'Fraunces', serif;
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+    .mini-text {
+      font-size: 14px;
+      color: var(--text-dim);
+    }
+
+    .tip {
+      margin-top: 28px;
+      padding: 16px 18px;
+      background: var(--surface);
+      border: 1px dashed var(--border);
+      border-radius: 14px;
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    footer {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 28px 20px 48px;
+      color: var(--text-dim);
+      font-size: 12px;
+    }
+
+    @media (max-width: 720px) {
+      .cards, .mini-grid, .flight-cards { grid-template-columns: 1fr; }
+      .section-title { font-size: 28px; }
+      .stop-name { font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#route">Route</a>
+      <a href="#stays">Stay</a>
+      <a href="#cafes">Cafes</a>
+      <a href="#bars">Drinks</a>
+      <a href="#eat">Eat</a>
+      <a href="#visit">Visit</a>
+      <a href="#do">Do</a>
+      <a href="#mini">Mini Routes</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Apr 17–23 2026 · 5–6 nights · Solo break · Sanur, Bali</div>
+      <h1>Ba<span>li</span><br />Reset</h1>
+      <div class="hero-sub">A low-stress Sanur base with one real anchor: learn to wakeboard, keep the rest easy, and only leave Sanur when the outing is clearly worth the effort.</div>
+
+      <div class="hero-tags">
+        <div class="hero-tag">Stay in Sanur</div>
+        <div class="hero-tag">Solo friendly</div>
+        <div class="hero-tag">Wakeboard-led</div>
+        <div class="hero-tag">Same timezone</div>
+        <div class="hero-tag">Low friction</div>
+        <div class="hero-tag">Map links everywhere</div>
+      </div>
+
+      <div class="flight-cards">
+        <div class="flight-card">
+          <div class="flight-label">Base</div>
+          <div class="flight-route">Sanur, all trip</div>
+          <div class="flight-detail">Best fit for calm mornings, easy food, beach walks, and not wasting your leave on traffic or hotel hopping.</div>
+        </div>
+        <div class="flight-card">
+          <div class="flight-label">Anchor activity</div>
+          <div class="flight-route">Bali Wake Park</div>
+          <div class="flight-detail">Beginner-friendly cable park in South Denpasar. Current public pricing looks roughly IDR 400k for 1 hour or IDR 600k for 2 hours, with basic gear and instructor support included.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="overview">
+      <div class="overview-card">
+        <div class="overview-label">Where to stay</div>
+        <div class="overview-title">Stay in Sanur the whole time</div>
+        <div class="overview-text">Do not split this trip across Bali. Sanur is the point. It is easier on your brain, gentler than Canggu or Seminyak, and close enough to the airport and Bali Wake Park that the logistics stay light.</div>
+        <div class="pills">
+          <a class="pill" href="https://www.google.com/maps/search/?api=1&query=Tandjung+Sari+Hotel+Sanur" target="_blank" rel="noopener noreferrer">Best pick · Tandjung Sari</a>
+          <a class="pill" href="https://www.google.com/maps/search/?api=1&query=Hyatt+Regency+Bali+Sanur" target="_blank" rel="noopener noreferrer">Polished resort · Hyatt Regency Bali</a>
+          <a class="pill" href="https://www.google.com/maps/search/?api=1&query=Klumpu+Bali+Resort+Sanur" target="_blank" rel="noopener noreferrer">Quiet boutique · Klumpu Bali Resort</a>
+        </div>
+      </div>
+
+      <div class="overview-card">
+        <div class="overview-label">Book first</div>
+        <div class="overview-title">Only lock in the things that matter</div>
+        <div class="overview-text">Book the hotel, then book one Bali Wake Park session. After that, keep the rest loose. This trip gets worse if you turn it into a military operation.</div>
+        <div class="pills">
+          <a class="pill" href="https://www.google.com/maps/search/?api=1&query=Bali+Wake+Park" target="_blank" rel="noopener noreferrer">Book wakeboard day</a>
+          <a class="pill" href="https://www.google.com/maps/search/?api=1&query=Sanur+Beach+Promenade" target="_blank" rel="noopener noreferrer">First walk · Sanur promenade</a>
+          <a class="pill" href="https://www.google.com/maps/search/?api=1&query=spa+Sanur+Bali" target="_blank" rel="noopener noreferrer">Recovery plan · spa</a>
+        </div>
+      </div>
+
+      <div class="overview-card">
+        <div class="overview-label">How to use this</div>
+        <div class="overview-title">Think in layers, not checklists</div>
+        <div class="overview-text">The only fixed pieces are your Sanur base and one or two wakeboard sessions. Everything else is modular. If you wake up lazy, do Sanur. If your energy is good, take one clean outing to Jimbaran, Uluwatu, or Ubud, then come back.</div>
+      </div>
+    </section>
+
+    <section class="section" id="route">
+      <div class="section-label">Main route</div>
+      <h2 class="section-title">The easiest version of this trip</h2>
+      <div class="timeline">
+        <div class="stop">
+          <div class="stop-dot"></div>
+          <div class="stop-time">Day 1 · Arrival</div>
+          <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Sanur+Bali" target="_blank" rel="noopener noreferrer">Check into Sanur and do almost nothing</a></div>
+          <div class="stop-desc">Get into your hotel, walk the beach path, have an easy first meal, and let Bali stay simple on the first day. Good first-night options: Tandjung Sari Restaurant, Massimo, or Byrd House.</div>
+          <div class="stop-meta">
+            <a class="pill" href="https://www.google.com/maps/search/?api=1&query=Sanur+Beach+Promenade" target="_blank" rel="noopener noreferrer">Maps · promenade</a>
+            <a class="pill" href="https://www.google.com/maps/search/?api=1&query=Massimo+Italian+Restaurant+Sanur" target="_blank" rel="noopener noreferrer">Dinner · Massimo</a>
+          </div>
+        </div>
+
+        <div class="stop">
+          <div class="stop-dot"></div>
+          <div class="stop-time">Day 2 · Morning anchor</div>
+          <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Bali+Wake+Park" target="_blank" rel="noopener noreferrer">Go to Bali Wake Park</a></div>
+          <div class="stop-desc">This is the actual point of the trip. Do the beginner-friendly cable session, keep the rest of the day loose, then come back to Sanur for a massage and an early dinner.</div>
+          <div class="stop-meta">
+            <a class="pill" href="https://www.google.com/maps/search/?api=1&query=Bali+Wake+Park" target="_blank" rel="noopener noreferrer">Maps · wake park</a>
+            <a class="pill" href="https://www.google.com/maps/search/?api=1&query=spa+Sanur+Bali" target="_blank" rel="noopener noreferrer">Recovery · spa</a>
+          </div>
+        </div>
+
+        <div class="stop">
+          <div class="stop-dot"></div>
+          <div class="stop-time">Day 3 · Soft reset</div>
+          <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Karang+Beach+Sanur" target="_blank" rel="noopener noreferrer">Sanur sunrise, brunch, beach, repeat</a></div>
+          <div class="stop-desc">Do Karang Beach or Sindhu early, brunch at Sala Bistro or Genius Cafe, then keep the middle of the day empty on purpose. This should feel like leave, not output.</div>
+          <div class="stop-meta">
+            <a class="pill" href="https://www.google.com/maps/search/?api=1&query=Karang+Beach+Sanur" target="_blank" rel="noopener noreferrer">Maps · Karang</a>
+            <a class="pill" href="https://www.google.com/maps/search/?api=1&query=Sala+Bistro+Sanur" target="_blank" rel="noopener noreferrer">Brunch · Sala</a>
+          </div>
+        </div>
+
+        <div class="stop">
+          <div class="stop-dot"></div>
+          <div class="stop-time">Day 4 · Optional south Bali</div>
+          <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Jimbaran+Bay" target="_blank" rel="noopener noreferrer">Pick one clean outing: Jimbaran or Uluwatu</a></div>
+          <div class="stop-desc">If you want one proper outing, make it south Bali. Jimbaran is easier and softer. Uluwatu gives you the big scenic hit. Do not try to cram both with a dozen other stops.</div>
+          <div class="stop-meta">
+            <a class="pill" href="https://www.google.com/maps/search/?api=1&query=Jimbaran+Bay" target="_blank" rel="noopener noreferrer">Sunset · Jimbaran</a>
+            <a class="pill" href="https://www.google.com/maps/search/?api=1&query=Uluwatu+Temple" target="_blank" rel="noopener noreferrer">Scenic option · Uluwatu</a>
+          </div>
+        </div>
+
+        <div class="stop">
+          <div class="stop-dot"></div>
+          <div class="stop-time">Day 5 · Optional culture day</div>
+          <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Sacred+Monkey+Forest+Sanctuary+Ubud" target="_blank" rel="noopener noreferrer">If you want one inland day, do a light Ubud sampler</a></div>
+          <div class="stop-desc">Go early, keep it to Monkey Forest plus a central Ubud stroll, then come back. It is there to change the texture of the trip a little, not to become a second holiday inside the holiday.</div>
+          <div class="stop-meta">
+            <a class="pill" href="https://www.google.com/maps/search/?api=1&query=Sacred+Monkey+Forest+Sanctuary+Ubud" target="_blank" rel="noopener noreferrer">Maps · Monkey Forest</a>
+            <a class="pill" href="https://www.google.com/maps/search/?api=1&query=Seminyak+Bali" target="_blank" rel="noopener noreferrer">Lower-effort swap · Seminyak lunch</a>
+          </div>
+        </div>
+
+        <div class="stop">
+          <div class="stop-dot"></div>
+          <div class="stop-time">Day 6 · Free buffer</div>
+          <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Mertasari+Beach+Sanur" target="_blank" rel="noopener noreferrer">Leave one day deliberately underbooked</a></div>
+          <div class="stop-desc">Use it for a second wake session, a long massage, beach time, a lazy lunch, or absolutely nothing. This is the day that stops the trip from feeling too planned.</div>
+          <div class="stop-meta">
+            <a class="pill" href="https://www.google.com/maps/search/?api=1&query=Mertasari+Beach+Sanur" target="_blank" rel="noopener noreferrer">Maps · Mertasari</a>
+            <a class="pill" href="https://www.google.com/maps/search/?api=1&query=Bali+Wake+Park" target="_blank" rel="noopener noreferrer">Second ride · Bali Wake Park</a>
+          </div>
+        </div>
+
+        <div class="stop">
+          <div class="stop-dot"></div>
+          <div class="stop-time">Departure day</div>
+          <div class="stop-name"><a href="https://www.google.com/maps/search/?api=1&query=Sanur+Bali" target="_blank" rel="noopener noreferrer">Slow breakfast, pack, and leave cleanly</a></div>
+          <div class="stop-desc">No dramatic final sprint. One last café, one last walk, one last coffee, then airport whenever you need it.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="stays">
+      <div class="collapsible" data-collapsed="false">
+        <button class="collapse-trigger" type="button" onclick="toggleSection(this)">
+          <span class="collapse-title"><span class="collapse-icon" style="background:var(--accent-soft);color:var(--accent);">⌂</span>Where to stay</span>
+          <span class="chev">⌄</span>
+        </button>
+        <div class="collapse-body">
+          <div class="cards">
+            <article class="card">
+              <div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Tandjung+Sari+Hotel+Sanur" target="_blank" rel="noopener noreferrer">Tandjung Sari</a><span class="card-badge badge-hotel">Best pick</span></div>
+              <div class="card-desc">Historic beachfront Sanur hotel, quiet, tasteful, and exactly right for a solo trip that wants to feel special without becoming flashy.</div>
+            </article>
+            <article class="card">
+              <div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Hyatt+Regency+Bali+Sanur" target="_blank" rel="noopener noreferrer">Hyatt Regency Bali</a><span class="card-badge badge-hotel">Easy mode</span></div>
+              <div class="card-desc">Big polished resort with good grounds and beachfront access. Pick this if you want comfort and zero friction.</div>
+            </article>
+            <article class="card">
+              <div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Klumpu+Bali+Resort+Sanur" target="_blank" rel="noopener noreferrer">Klumpu Bali Resort</a><span class="card-badge badge-hotel">Quiet boutique</span></div>
+              <div class="card-desc">Smaller and calmer, good if you want peace over scene and do not need a giant resort footprint.</div>
+            </article>
+            <article class="card">
+              <div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Danau+Tamblingan+Sanur" target="_blank" rel="noopener noreferrer">What to optimize for</a><span class="card-badge badge-sanur">Sanur</span></div>
+              <div class="card-desc">Stay close to the beach path and Jalan Danau Tamblingan so your mornings, coffee runs, and dinners are all walkable.</div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="cafes">
+      <div class="collapsible" data-collapsed="false">
+        <button class="collapse-trigger" type="button" onclick="toggleSection(this)">
+          <span class="collapse-title"><span class="collapse-icon" style="background:var(--sea-soft);color:var(--sea);">☕</span>Sanur cafés and daytime anchors</span>
+          <span class="chev">⌄</span>
+        </button>
+        <div class="collapse-body">
+          <div class="cards">
+            <article class="card"><div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Sala+Bistro+Sanur" target="_blank" rel="noopener noreferrer">Sala Bistro</a><span class="card-badge badge-sanur">Sanur</span></div><div class="card-desc">The clean brunch pick. Good coffee, easy solo breakfast, and a nice first proper meal after a beach walk.</div></article>
+            <article class="card"><div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Genius+Cafe+Sanur" target="_blank" rel="noopener noreferrer">Genius Cafe</a><span class="card-badge badge-sanur">Sanur</span></div><div class="card-desc">Beachfront, healthy, relaxed, and ideal when you want a low-commitment breakfast or light lunch right by Mertasari.</div></article>
+            <article class="card"><div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Rue+Bali+Sanur" target="_blank" rel="noopener noreferrer">Rue Bali</a><span class="card-badge badge-sanur">Sanur</span></div><div class="card-desc">Stylish all-day option on Tamblingan, good when you want something a little prettier without going full occasion mode.</div></article>
+            <article class="card"><div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Moreno+Beach+Sanur" target="_blank" rel="noopener noreferrer">Moreno Beach</a><span class="card-badge badge-sanur">Sanur</span></div><div class="card-desc">Beach lunch energy. Nice for a slow daytime meal where the setting does some of the work.</div></article>
+            <article class="card"><div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Byrd+House+Sanur" target="_blank" rel="noopener noreferrer">Byrd House</a><span class="card-badge badge-sanur">Sanur</span></div><div class="card-desc">Breakfast, lunch, or sunset. Feels slightly polished but still easy enough to use casually.</div></article>
+            <article class="card"><div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=ICON+Bali+Mall+Sanur" target="_blank" rel="noopener noreferrer">ICON Bali</a><span class="card-badge badge-sanur">Practical</span></div><div class="card-desc">Not romantic, just useful. Good AC stop, coffee reset, grocery run, or rainy-day filler without leaving Sanur.</div></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="bars">
+      <div class="collapsible" data-collapsed="true">
+        <button class="collapse-trigger" type="button" onclick="toggleSection(this)">
+          <span class="collapse-title"><span class="collapse-icon" style="background:var(--gold-soft);color:var(--gold);">🍸</span>Easy drinks, not chaotic nights</span>
+          <span class="chev">⌄</span>
+        </button>
+        <div class="collapse-body">
+          <div class="cards">
+            <article class="card"><div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Byrd+House+Sanur" target="_blank" rel="noopener noreferrer">Byrd House</a><span class="card-badge badge-sanur">Sanur</span></div><div class="card-desc">Best all-round sunset drink option in Sanur if you want beachfront without turning the night into a mission.</div></article>
+            <article class="card"><div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Jalapeno+Sanur+Bali" target="_blank" rel="noopener noreferrer">Jalapeño</a><span class="card-badge badge-sanur">Sanur</span></div><div class="card-desc">Tacos and margaritas, fun but manageable, good if you want one livelier night without leaving the area.</div></article>
+            <article class="card"><div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Shotgun+Social+Sanur" target="_blank" rel="noopener noreferrer">Shotgun Social</a><span class="card-badge badge-sanur">Sanur</span></div><div class="card-desc">Beer-garden energy, easy to sit at for a while, and better as a social night than anything clubby.</div></article>
+            <article class="card"><div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Jimbaran+Bay" target="_blank" rel="noopener noreferrer">Jimbaran sunset drinks</a><span class="card-badge badge-south">South Bali</span></div><div class="card-desc">Not really a bar pick, more a sunset-and-dinner mood. Worth it when you want one scenic evening outside Sanur.</div></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="eat">
+      <div class="collapsible" data-collapsed="true">
+        <button class="collapse-trigger" type="button" onclick="toggleSection(this)">
+          <span class="collapse-title"><span class="collapse-icon" style="background:var(--accent-soft);color:var(--accent);">🍽</span>Where to eat</span>
+          <span class="chev">⌄</span>
+        </button>
+        <div class="collapse-body">
+          <div class="cards">
+            <article class="card"><div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Massimo+Italian+Restaurant+Sanur" target="_blank" rel="noopener noreferrer">Massimo</a><span class="card-badge badge-sanur">Sanur</span></div><div class="card-desc">Sanur classic, reliable Italian, famous gelato, easy first-night or no-brainer dinner.</div></article>
+            <article class="card"><div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Tandjung+Sari+Restaurant+Sanur" target="_blank" rel="noopener noreferrer">Tandjung Sari Restaurant</a><span class="card-badge badge-sanur">Sanur</span></div><div class="card-desc">Quietly beautiful Indonesian dinner if you want one meal that feels special without being too much.</div></article>
+            <article class="card"><div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Lilla+Warung+Sanur" target="_blank" rel="noopener noreferrer">Lilla Warung</a><span class="card-badge badge-sanur">Sanur</span></div><div class="card-desc">Easy repeatable meal. Good for the middle of the trip when you want something low-stakes and solid.</div></article>
+            <article class="card"><div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Rue+Bali+Sanur" target="_blank" rel="noopener noreferrer">Rue Bali</a><span class="card-badge badge-sanur">Sanur</span></div><div class="card-desc">Useful crossover pick because it works for brunch, lunch, or a casual evening.</div></article>
+            <article class="card"><div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Merah+Putih+Bali" target="_blank" rel="noopener noreferrer">Merah Putih</a><span class="card-badge badge-seminyak">Seminyak</span></div><div class="card-desc">If you do one polished dinner outside Sanur, this is the one that actually feels worth the trip.</div></article>
+            <article class="card"><div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Masonry+Grill+Bar+Canggu" target="_blank" rel="noopener noreferrer">Masonry Grill &amp; Bar</a><span class="card-badge badge-seminyak">Canggu</span></div><div class="card-desc">Worth it only if you are already on that side. More destination-worthy than just generic Canggu hype.</div></article>
+            <article class="card"><div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Room4Dessert+Ubud" target="_blank" rel="noopener noreferrer">Room4Dessert</a><span class="card-badge badge-ubud">Ubud</span></div><div class="card-desc">Good if you want one memorable Ubud night instead of bouncing between lots of mediocre stops.</div></article>
+            <article class="card"><div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Locavore+NXT+Ubud" target="_blank" rel="noopener noreferrer">Locavore NXT</a><span class="card-badge badge-ubud">Ubud</span></div><div class="card-desc">Only if you want a serious dining commitment. More food-trip than casual leave day.</div></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="visit">
+      <div class="collapsible" data-collapsed="true">
+        <button class="collapse-trigger" type="button" onclick="toggleSection(this)">
+          <span class="collapse-title"><span class="collapse-icon" style="background:var(--leaf-soft);color:var(--leaf);">📍</span>Where to visit</span>
+          <span class="chev">⌄</span>
+        </button>
+        <div class="collapse-body">
+          <div class="cards">
+            <article class="card"><div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Sanur+Beach+Promenade" target="_blank" rel="noopener noreferrer">Sanur Beach Promenade</a><span class="card-badge badge-sanur">Sanur</span></div><div class="card-desc">The backbone of the trip. Morning walks, easy coffee runs, and the simplest way to feel like you’re properly away.</div></article>
+            <article class="card"><div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Karang+Beach+Sanur" target="_blank" rel="noopener noreferrer">Karang Beach</a><span class="card-badge badge-sanur">Sanur</span></div><div class="card-desc">Best sunrise section if you want a quiet early-morning reset.</div></article>
+            <article class="card"><div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Sindhu+Beach+Sanur" target="_blank" rel="noopener noreferrer">Sindhu Beach</a><span class="card-badge badge-sanur">Sanur</span></div><div class="card-desc">Easy sand, easy swim, easy access. Good for a simple beach block without drama.</div></article>
+            <article class="card"><div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Mertasari+Beach+Sanur" target="_blank" rel="noopener noreferrer">Mertasari Beach</a><span class="card-badge badge-sanur">Sanur</span></div><div class="card-desc">Softer southern-end Sanur energy. Good after a wakeboard day when you want open space and less clutter.</div></article>
+            <article class="card"><div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Serangan+Island+Bali" target="_blank" rel="noopener noreferrer">Serangan Island</a><span class="card-badge badge-south">South Bali</span></div><div class="card-desc">Close enough for a short coastal detour if you want a different texture without a big expedition.</div></article>
+            <article class="card"><div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Jimbaran+Bay" target="_blank" rel="noopener noreferrer">Jimbaran Bay</a><span class="card-badge badge-south">South Bali</span></div><div class="card-desc">Best easy sunset dinner outing if you want one classic Bali evening.</div></article>
+            <article class="card"><div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Uluwatu+Temple" target="_blank" rel="noopener noreferrer">Uluwatu Temple</a><span class="card-badge badge-south">South Bali</span></div><div class="card-desc">The one dramatic scenic stop worth keeping on the board, but only as a single focused outing.</div></article>
+            <article class="card"><div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Sacred+Monkey+Forest+Sanctuary+Ubud" target="_blank" rel="noopener noreferrer">Monkey Forest + central Ubud</a><span class="card-badge badge-ubud">Ubud</span></div><div class="card-desc">Best light-touch Ubud day. Enough greenery and strolling without turning the day into a marathon.</div></article>
+            <article class="card"><div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Seminyak+Bali" target="_blank" rel="noopener noreferrer">Seminyak lunch block</a><span class="card-badge badge-seminyak">Seminyak</span></div><div class="card-desc">A cleaner optional swap if you want cafés and a little polish more than temples or inland driving.</div></article>
+            <article class="card"><div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Waterbom+Bali" target="_blank" rel="noopener noreferrer">Waterbom Bali</a><span class="card-badge badge-south">Kuta</span></div><div class="card-desc">Not essential, but if you want one playful active day near the airport side, it is genuinely one of the easiest wins.</div></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="do">
+      <div class="collapsible" data-collapsed="true">
+        <button class="collapse-trigger" type="button" onclick="toggleSection(this)">
+          <span class="collapse-title"><span class="collapse-icon" style="background:var(--purple-soft);color:var(--purple);">✦</span>Things to do</span>
+          <span class="chev">⌄</span>
+        </button>
+        <div class="collapse-body">
+          <div class="cards">
+            <article class="card"><div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Bali+Wake+Park" target="_blank" rel="noopener noreferrer">Bali Wake Park</a><span class="card-badge badge-south">Anchor</span></div><div class="card-desc">Current public pricing looks around IDR 400k for 1 hour or IDR 600k for 2 hours. Best beginner-led activity on the island for this exact brief.</div></article>
+            <article class="card"><div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=spa+Sanur+Bali" target="_blank" rel="noopener noreferrer">Sanur spa afternoon</a><span class="card-badge badge-sanur">Recovery</span></div><div class="card-desc">Mandatory, honestly. This trip should include recovery, not just movement.</div></article>
+            <article class="card"><div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Sanur+Beach+Promenade" target="_blank" rel="noopener noreferrer">Sunrise promenade walk</a><span class="card-badge badge-sanur">Free</span></div><div class="card-desc">The easiest daily ritual. Coffee after, phone away for a bit, brain back online.</div></article>
+            <article class="card"><div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Genius+Cafe+Sanur" target="_blank" rel="noopener noreferrer">Beach brunch at Genius Cafe</a><span class="card-badge badge-sanur">Low effort</span></div><div class="card-desc">Use this when you want the day to stay light and you do not want to negotiate much with yourself.</div></article>
+            <article class="card"><div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=Jimbaran+Bay" target="_blank" rel="noopener noreferrer">Seafood sunset in Jimbaran</a><span class="card-badge badge-south">Optional</span></div><div class="card-desc">Best one-evening field trip if your energy is good.</div></article>
+            <article class="card"><div class="card-name"><a href="https://www.google.com/maps/search/?api=1&query=ICON+Bali+Mall+Sanur" target="_blank" rel="noopener noreferrer">Indoor recovery block at ICON Bali</a><span class="card-badge badge-sanur">Practical</span></div><div class="card-desc">Useful rainy-day or midday-heat move when you want AC and an easy brain-off hour.</div></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="mini">
+      <div class="section-label">Plug-and-play</div>
+      <h2 class="section-title">Mini routes you can actually use</h2>
+      <div class="mini-grid">
+        <article class="mini">
+          <div class="mini-title">Wake day</div>
+          <div class="mini-text">Hotel breakfast <strong>→</strong> Bali Wake Park <strong>→</strong> late lunch back in Sanur <strong>→</strong> massage <strong>→</strong> quiet dinner.</div>
+        </article>
+        <article class="mini">
+          <div class="mini-title">Pure Sanur reset</div>
+          <div class="mini-text">Karang Beach sunrise <strong>→</strong> Sala Bistro <strong>→</strong> beach / nap / book <strong>→</strong> Moreno or Byrd House at golden hour.</div>
+        </article>
+        <article class="mini">
+          <div class="mini-title">South Bali sunset</div>
+          <div class="mini-text">Slow morning in Sanur <strong>→</strong> head south mid-afternoon <strong>→</strong> Uluwatu or Jimbaran <strong>→</strong> seafood dinner <strong>→</strong> back to base.</div>
+        </article>
+        <article class="mini">
+          <div class="mini-title">One easy Ubud day</div>
+          <div class="mini-text">Early start <strong>→</strong> Monkey Forest <strong>→</strong> central Ubud lunch <strong>→</strong> one café <strong>→</strong> back before dinner.</div>
+        </article>
+      </div>
+
+      <div class="tip">
+        Every place name opens a Google Maps search so you can save it into one list and run the whole trip from your phone without digging around later.
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Bali · Sanur Reset · April 2026 · Built as a single static page so it loads fast, looks clean on mobile, and is easy to tweak.
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const navLinks = document.querySelectorAll('.nav a');
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+        });
+      });
+    });
+
+    function toggleSection(button) {
+      const card = button.closest('.collapsible');
+      const collapsed = card.getAttribute('data-collapsed') === 'true';
+      card.setAttribute('data-collapsed', collapsed ? 'false' : 'true');
+    }
+  </script>
+</body>
+</html>
