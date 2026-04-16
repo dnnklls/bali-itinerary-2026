@@ -658,7 +658,7 @@
             </li>
             <li>
               <div class="sched-marker">B</div>
-              <div class="sched-content"><strong>Wake board session #3 at <a href="https://www.sanursurf.com/wakeboard" target="_blank">Sanur Surf School</a></strong><div class="sched-note">Early final session - need to be done by 13:00 for airport. <a href="https://www.sanursurf.com/wakeboard" target="_blank" style="color:var(--green);font-weight:600;">Book online</a></div></div>
+              <div class="sched-content"><strong>Wake board session #3 at <a href="https://www.sanursurf.com/wakeboard" target="_blank">Sanur Surf School</a></strong><div class="sched-note">Last session. Leave it all out there. <a href="https://www.sanursurf.com/wakeboard" target="_blank" style="color:var(--green);font-weight:600;">Book online</a></div></div>
               <div class="sched-time">09:00 &ndash; 11:00</div>
             </li>
             <li>
@@ -701,7 +701,7 @@
             </div>
             <div class="day-meta-box">
               <div class="day-meta-label">Check out</div>
-              <div class="day-meta-value">Sanur Art Villas &rarr; check-out by 13:00</div>
+              <div class="day-meta-value">Sanur Art Villas &rarr; check-out by 14:00</div>
             </div>
           </div>
           <ul class="day-schedule">
