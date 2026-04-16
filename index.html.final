@@ -376,7 +376,7 @@
           <div class="flight-box-label">Outbound &middot; Apr 19</div>
           <div class="flight-box-route">SIN &rarr; DPS</div>
           <div class="flight-box-detail">
-            <strong>SQ 938</strong> &middot; Depart 09:15 &middot; Arrive 12:00<br>
+            <strong>SQ 938</strong> &middot; Depart 09:15 Depart 12:10 &middot; Arrive 12:00middot; Arrive 12:00<br>
             2h 45m
           </div>
         </div>
@@ -384,13 +384,13 @@
           <div class="flight-box-label">Return &middot; Apr 23</div>
           <div class="flight-box-route">DPS &rarr; SIN</div>
           <div class="flight-box-detail">
-            <strong>SQ 939</strong> &middot; Depart 13:15 &middot; Arrive 16:00<br>
+            <strong>SQ 939</strong> &middot; Depart 13:15 Depart 16:10 &middot; Arrive 21:00middot; Arrive 16:00<br>
             2h 45m
           </div>
         </div>
       </div>
       <div class="flight-rec">
-        <strong>Why these flights:</strong> SQ 938 morning departure &mdash; you land at 12:00 with full afternoon. SQ 939 on the 23rd gets you home at 16:00 &mdash; comfortable timing.
+        <strong>Why these flights:</strong> SQ 938 afternoon departure &mdash; you land at 12:00 with plenty of day left. SQ 939 on the 22nd gets you home at 21:00 &mdash; comfortable timing without rushing.
       </div>
     </div>
   </header>
@@ -481,7 +481,7 @@
           <div class="day-meta">
             <div class="day-meta-box">
               <div class="day-meta-label">Staying at</div>
-              <div class="day-meta-value"><a href="https://www.google.com/maps/search/?api=1&query=Sanur+Art+Villas" target="_blank">Sanur Art Villas</a></div>
+              <div class="day-meta-value"><a href="https://www.google.com/maps/search/?api=1&query=Sanur+Art+Villas" target="_blank">Palette Signature Hotel</a></div>
             </div>
             <div class="day-meta-box">
               <div class="day-meta-label">Flight</div>
@@ -535,7 +535,7 @@
           <div class="day-meta">
             <div class="day-meta-box">
               <div class="day-meta-label">Staying at</div>
-              <div class="day-meta-value"><a href="https://www.google.com/maps/search/?api=1&query=Sanur+Art+Villas" target="_blank">Sanur Art Villas</a></div>
+              <div class="day-meta-value"><a href="https://www.google.com/maps/search/?api=1&query=Sanur+Art+Villas" target="_blank">Palette Signature Hotel</a></div>
             </div>
             <div class="day-meta-box">
               <div class="day-meta-label">Key activity</div>
@@ -589,7 +589,7 @@
           <div class="day-meta">
             <div class="day-meta-box">
               <div class="day-meta-label">Staying at</div>
-              <div class="day-meta-value"><a href="https://www.google.com/maps/search/?api=1&query=Sanur+Art+Villas" target="_blank">Sanur Art Villas</a></div>
+              <div class="day-meta-value"><a href="https://www.google.com/maps/search/?api=1&query=Sanur+Art+Villas" target="_blank">Palette Signature Hotel</a></div>
             </div>
             <div class="day-meta-box">
               <div class="day-meta-label">Key activity</div>
@@ -643,7 +643,7 @@
           <div class="day-meta">
             <div class="day-meta-box">
               <div class="day-meta-label">Staying at</div>
-              <div class="day-meta-value"><a href="https://www.google.com/maps/search/?api=1&query=Sanur+Art+Villas" target="_blank">Sanur Art Villas</a></div>
+              <div class="day-meta-value"><a href="https://www.google.com/maps/search/?api=1&query=Sanur+Art+Villas" target="_blank">Palette Signature Hotel</a></div>
             </div>
             <div class="day-meta-box">
               <div class="day-meta-label">Key activity</div>
@@ -697,7 +697,7 @@
           <div class="day-meta">
             <div class="day-meta-box">
               <div class="day-meta-label">Flight</div>
-              <div class="day-meta-value">SQ 939 &middot; Depart 13:15</div>
+              <div class="day-meta-value">SQ 939 SQ 939 &middot; Depart 16:10middot; Depart 13:15</div>
             </div>
             <div class="day-meta-box">
               <div class="day-meta-label">Check out</div>
@@ -952,7 +952,7 @@
       { pos: LOC.karang,  label: 'B', color: COLORS.pink, popup: 'B · Karang Beach (last swim)' },
       { pos: LOC.moreno,  label: 'C', color: COLORS.pink, popup: 'C · Moreno Beach (lunch)' },
       { pos: LOC.sanurArt, label: 'D', color: COLORS.pink, popup: 'D · Sanur Art Villas (pack up)' },
-      { pos: LOC.airport, label: 'E', color: COLORS.pink, popup: 'E · DPS Airport (SQ 939 at 13:15)' },
+      { pos: LOC.airport, label: 'E', color: COLORS.pink, popup: 'E · DPS Airport (SQ 939 at 16:10)' },
     ], COLORS.pink);
 
     // ── Nav active state ──
