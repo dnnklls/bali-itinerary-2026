@@ -4,256 +4,302 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bali Wake Board Trip · Apr 19–23 2026</title>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>
     :root {
-      --bg: #f5f0e8;
-      --bg2: #ede7db;
-      --surface: #ffffff;
-      --border: #d4cec2;
-      --text: #1a1a1a;
-      --text-dim: #6b6560;
-      --accent: #c96b3b;
-      --accent-soft: #f3e0d3;
-      --sea: #196d74;
-      --sea-soft: #d5ecee;
-      --leaf: #437154;
-      --leaf-soft: #dbe9dd;
-      --gold: #a77b2d;
-      --gold-soft: #f4e7ca;
-      --purple: #6a5a7a;
-      --purple-soft: #e8e0f0;
-      --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-      --shadow-lg: 0 6px 18px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
+      --bg: #000000;
+      --bg2: #0a0a0a;
+      --surface: rgba(255,255,255,0.05);
+      --surface-hover: rgba(255,255,255,0.08);
+      --glass: rgba(255,255,255,0.06);
+      --glass-border: rgba(255,255,255,0.1);
+      --glass-strong: rgba(255,255,255,0.1);
+      --text: rgba(255,255,255,0.92);
+      --text-secondary: rgba(255,255,255,0.55);
+      --text-tertiary: rgba(255,255,255,0.35);
+      --accent: #0a84ff;
+      --accent-dim: rgba(10,132,255,0.15);
+      --green: #30d158;
+      --green-dim: rgba(48,209,88,0.15);
+      --orange: #ff9f0a;
+      --orange-dim: rgba(255,159,10,0.15);
+      --purple: #bf5af2;
+      --purple-dim: rgba(191,90,242,0.15);
+      --teal: #64d2ff;
+      --teal-dim: rgba(100,210,255,0.15);
+      --pink: #ff375f;
+      --pink-dim: rgba(255,55,95,0.15);
+      --radius: 16px;
+      --radius-sm: 10px;
+      --blur: blur(40px) saturate(180%);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      font-family: 'Instrument Sans', sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.65;
+      line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
-    a { color: inherit; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── AMBIENT GLOW ── */
+    body::before {
+      content: '';
+      position: fixed; top: -40%; left: -20%; width: 140%; height: 100%;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(10,132,255,0.08), transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(191,90,242,0.06), transparent 40%),
+        radial-gradient(ellipse at 60% 80%, rgba(48,209,88,0.04), transparent 40%);
+      pointer-events: none; z-index: 0;
+    }
 
     /* ── NAV ── */
     .nav {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(245,240,232,0.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(212,206,194,0.7);
+      background: rgba(0,0,0,0.72);
+      backdrop-filter: var(--blur);
+      -webkit-backdrop-filter: var(--blur);
+      border-bottom: 1px solid var(--glass-border);
       overflow-x: auto;
     }
+    .nav::-webkit-scrollbar { display: none; }
     .nav-inner {
       max-width: 820px; margin: 0 auto;
       display: flex; gap: 2px; padding: 0 16px;
     }
     .nav a {
-      text-decoration: none; color: var(--text-dim);
-      font-size: 12px; font-weight: 600; white-space: nowrap;
-      padding: 14px 10px; border-bottom: 2px solid transparent;
+      text-decoration: none; color: var(--text-secondary);
+      font-size: 13px; font-weight: 500; white-space: nowrap;
+      padding: 14px 12px; border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
     }
-    .nav a:hover, .nav a.active { color: var(--text); border-bottom-color: var(--accent); }
+    .nav a:hover, .nav a.active {
+      color: var(--text); border-bottom-color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* ── GLASS PANEL ── */
+    .glass {
+      background: var(--glass);
+      backdrop-filter: var(--blur);
+      -webkit-backdrop-filter: var(--blur);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+    }
 
     /* ── HERO ── */
     .hero {
-      background: linear-gradient(160deg, #18424c 0%, #0f2b31 100%);
-      color: #fff; padding: 48px 20px 32px;
       position: relative; overflow: hidden;
+      padding: 56px 20px 36px;
     }
     .hero::before {
       content: ''; position: absolute; inset: 0;
-      background: radial-gradient(circle at 78% 22%, rgba(201,107,59,0.30), transparent 34%),
-                  radial-gradient(circle at 18% 82%, rgba(120,180,160,0.22), transparent 32%);
+      background:
+        radial-gradient(ellipse at 70% 0%, rgba(10,132,255,0.15), transparent 50%),
+        radial-gradient(ellipse at 30% 100%, rgba(191,90,242,0.10), transparent 50%);
       pointer-events: none;
     }
     .hero-inner { position: relative; z-index: 1; max-width: 820px; margin: 0 auto; }
     .hero-eyebrow {
       font-family: 'JetBrains Mono', monospace; font-size: 11px;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      color: rgba(255,255,255,0.56); margin-bottom: 12px;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-tertiary); margin-bottom: 14px;
     }
     .hero h1 {
-      font-family: 'Fraunces', serif; font-size: clamp(40px, 9vw, 72px);
-      line-height: 0.95; letter-spacing: -0.03em; margin-bottom: 14px;
+      font-size: clamp(40px, 9vw, 68px); font-weight: 700;
+      line-height: 1; letter-spacing: -0.04em; margin-bottom: 14px;
+      background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
-    .hero h1 span { color: #f2b36a; }
-    .hero-sub { max-width: 640px; font-size: 15px; color: rgba(255,255,255,0.76); margin-bottom: 20px; }
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--teal) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub { max-width: 560px; font-size: 15px; color: var(--text-secondary); margin-bottom: 24px; line-height: 1.6; }
 
     /* ── FLIGHT STRIP ── */
-    .flight-strip {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 12px; margin-top: 20px;
-    }
+    .flight-strip { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
     .flight-box {
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 14px; padding: 16px;
+      background: var(--glass);
+      backdrop-filter: var(--blur);
+      -webkit-backdrop-filter: var(--blur);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius); padding: 18px;
     }
     .flight-box-label {
       font-family: 'JetBrains Mono', monospace; font-size: 10px;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      color: rgba(255,255,255,0.45); margin-bottom: 6px;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-tertiary); margin-bottom: 8px;
     }
-    .flight-box-route { font-family: 'Fraunces', serif; font-size: 18px; margin-bottom: 2px; }
-    .flight-box-detail { font-size: 13px; color: rgba(255,255,255,0.66); line-height: 1.5; }
-    .flight-box-detail strong { color: rgba(255,255,255,0.9); }
+    .flight-box-route { font-size: 20px; font-weight: 700; margin-bottom: 4px; letter-spacing: -0.02em; }
+    .flight-box-detail { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+    .flight-box-detail strong { color: var(--text); }
     .flight-rec {
-      margin-top: 12px; padding: 10px 14px;
-      background: rgba(242,179,106,0.12); border: 1px solid rgba(242,179,106,0.2);
-      border-radius: 10px; font-size: 12px; color: rgba(255,255,255,0.8);
+      margin-top: 12px; padding: 12px 16px;
+      background: var(--accent-dim);
+      border: 1px solid rgba(10,132,255,0.2);
+      border-radius: var(--radius-sm); font-size: 13px; color: var(--text-secondary);
     }
-    .flight-rec strong { color: #f2b36a; }
+    .flight-rec strong { color: var(--accent); }
 
     /* ── MAIN ── */
-    .main { max-width: 820px; margin: 0 auto; padding: 0 20px 64px; }
+    .main { max-width: 820px; margin: 0 auto; padding: 0 20px 64px; position: relative; z-index: 1; }
 
     /* ── SECTION ── */
-    .section { margin-top: 36px; }
+    .section { margin-top: 40px; }
     .section-label {
-      font-family: 'JetBrains Mono', monospace; font-size: 10px;
-      letter-spacing: 0.12em; text-transform: uppercase;
+      font-family: 'JetBrains Mono', monospace; font-size: 11px;
+      letter-spacing: 0.1em; text-transform: uppercase;
       color: var(--accent); margin-bottom: 6px;
     }
-    .section-title { font-family: 'Fraunces', serif; font-size: 24px; margin-bottom: 16px; }
+    .section-title { font-size: 26px; font-weight: 700; margin-bottom: 18px; letter-spacing: -0.03em; }
 
     /* ── DAY CARD ── */
     .day-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 16px; overflow: hidden;
-      box-shadow: var(--shadow); margin-bottom: 20px;
+      background: var(--glass);
+      backdrop-filter: var(--blur);
+      -webkit-backdrop-filter: var(--blur);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius); overflow: hidden;
+      margin-bottom: 20px;
+      transition: border-color 0.3s;
     }
+    .day-card:hover { border-color: rgba(255,255,255,0.18); }
     .day-header {
       display: flex; align-items: center; gap: 14px;
-      padding: 16px 20px; border-bottom: 1px solid var(--border);
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--glass-border);
     }
     .day-num {
-      width: 44px; height: 44px; border-radius: 12px;
+      width: 42px; height: 42px; border-radius: 12px;
       display: flex; align-items: center; justify-content: center;
-      font-family: 'Fraunces', serif; font-size: 20px; font-weight: 700; color: #fff;
-      flex-shrink: 0;
+      font-size: 18px; font-weight: 700; color: #fff; flex-shrink: 0;
     }
-    .day-num.d1 { background: var(--sea); }
-    .day-num.d2 { background: var(--accent); }
-    .day-num.d3 { background: var(--leaf); }
-    .day-num.d4 { background: var(--gold); }
-    .day-num.d5 { background: var(--purple); }
-    .day-header-text h3 { font-family: 'Fraunces', serif; font-size: 18px; line-height: 1.2; }
-    .day-header-text .day-date { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+    .day-num.d1 { background: var(--accent); }
+    .day-num.d2 { background: var(--orange); color: #000; }
+    .day-num.d3 { background: var(--green); color: #000; }
+    .day-num.d4 { background: var(--purple); }
+    .day-num.d5 { background: var(--pink); }
+    .day-header-text h3 { font-size: 18px; font-weight: 600; letter-spacing: -0.02em; }
+    .day-header-text .day-date { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
 
-    .day-body { padding: 20px; }
-    .day-meta {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 12px; margin-bottom: 16px;
-    }
+    .day-body { padding: 22px; }
+    .day-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
     .day-meta-box {
-      background: var(--bg); border-radius: 10px; padding: 12px 14px;
+      background: rgba(255,255,255,0.04); border-radius: var(--radius-sm);
+      padding: 12px 14px; border: 1px solid rgba(255,255,255,0.06);
     }
     .day-meta-label {
       font-family: 'JetBrains Mono', monospace; font-size: 9px;
       letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--text-dim); margin-bottom: 4px;
+      color: var(--text-tertiary); margin-bottom: 4px;
     }
     .day-meta-value { font-size: 13px; font-weight: 600; }
-    .day-meta-value a { text-decoration: none; border-bottom: 1px dashed var(--border); }
-    .day-meta-value a:hover { border-bottom-color: var(--accent); }
+    .day-meta-value a { color: var(--accent); text-decoration: none; }
+    .day-meta-value a:hover { text-decoration: underline; }
 
     .day-schedule { list-style: none; }
     .day-schedule li {
-      display: flex; gap: 12px; padding: 10px 0;
-      border-bottom: 1px solid var(--bg2); font-size: 14px;
+      display: flex; gap: 12px; padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px;
     }
     .day-schedule li:last-child { border-bottom: none; }
     .sched-marker {
       width: 28px; height: 28px; border-radius: 8px;
       display: flex; align-items: center; justify-content: center;
       font-family: 'JetBrains Mono', monospace; font-size: 11px;
-      font-weight: 700; flex-shrink: 0; margin-top: 1px;
+      font-weight: 700; flex-shrink: 0; margin-top: 2px;
     }
     .sched-content { flex: 1; }
     .sched-content strong { font-weight: 600; }
-    .sched-content .sched-note { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+    .sched-content .sched-note { font-size: 12px; color: var(--text-secondary); margin-top: 3px; line-height: 1.5; }
     .sched-time {
       font-family: 'JetBrains Mono', monospace; font-size: 11px;
-      color: var(--text-dim); white-space: nowrap; margin-top: 4px;
+      color: var(--text-tertiary); white-space: nowrap; margin-top: 4px;
     }
 
     /* marker colors per day */
-    .day-card:nth-child(1) .sched-marker { background: var(--sea-soft); color: var(--sea); }
-    .day-card:nth-child(2) .sched-marker { background: var(--accent-soft); color: var(--accent); }
-    .day-card:nth-child(3) .sched-marker { background: var(--leaf-soft); color: var(--leaf); }
-    .day-card:nth-child(4) .sched-marker { background: var(--gold-soft); color: var(--gold); }
-    .day-card:nth-child(5) .sched-marker { background: var(--purple-soft); color: var(--purple); }
+    .day-card:nth-of-type(1) .sched-marker { background: var(--accent-dim); color: var(--accent); }
+    .day-card:nth-of-type(2) .sched-marker { background: var(--orange-dim); color: var(--orange); }
+    .day-card:nth-of-type(3) .sched-marker { background: var(--green-dim); color: var(--green); }
+    .day-card:nth-of-type(4) .sched-marker { background: var(--purple-dim); color: var(--purple); }
+    .day-card:nth-of-type(5) .sched-marker { background: var(--pink-dim); color: var(--pink); }
 
     /* ── MAP ── */
     .day-map {
       width: 100%; height: 280px; border-radius: 12px;
-      margin-top: 16px; border: 1px solid var(--border);
+      margin-top: 16px; border: 1px solid var(--glass-border);
       z-index: 0;
     }
-    .map-legend {
-      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px;
-    }
+    .map-legend { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
     .map-legend-item {
-      display: inline-flex; align-items: center; gap: 5px;
-      font-size: 11px; color: var(--text-dim);
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; color: var(--text-secondary);
     }
-    .map-legend-dot {
-      width: 10px; height: 10px; border-radius: 3px;
-    }
+    .map-legend-dot { width: 8px; height: 8px; border-radius: 50%; }
 
     /* ── PILLS ── */
-    .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
     .pill {
       display: inline-flex; align-items: center; gap: 4px;
       font-size: 12px; font-weight: 600; text-decoration: none;
-      padding: 6px 12px; border-radius: 999px;
-      background: var(--bg2); border: 1px solid var(--border);
-      transition: all 0.15s;
+      padding: 7px 14px; border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text-secondary);
+      transition: all 0.2s;
     }
-    .pill:hover { background: var(--accent-soft); border-color: var(--accent); }
+    .pill:hover {
+      background: var(--accent-dim); border-color: rgba(10,132,255,0.3);
+      color: var(--accent); text-decoration: none;
+    }
 
     /* ── FLIGHT TABLE ── */
     .flight-table-wrap {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 14px; overflow: hidden; box-shadow: var(--shadow);
+      background: var(--glass);
+      backdrop-filter: var(--blur);
+      -webkit-backdrop-filter: var(--blur);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius); overflow: hidden;
     }
     .flight-table { width: 100%; border-collapse: collapse; font-size: 13px; }
     .flight-table th {
       font-family: 'JetBrains Mono', monospace; font-size: 10px;
       letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--text-dim); text-align: left;
-      padding: 12px 14px; background: var(--bg2);
-      border-bottom: 1px solid var(--border);
+      color: var(--text-tertiary); text-align: left;
+      padding: 12px 16px; background: rgba(255,255,255,0.03);
+      border-bottom: 1px solid var(--glass-border);
     }
-    .flight-table td {
-      padding: 10px 14px; border-bottom: 1px solid var(--bg2);
-    }
+    .flight-table td { padding: 11px 16px; border-bottom: 1px solid rgba(255,255,255,0.04); }
     .flight-table tr:last-child td { border-bottom: none; }
-    .flight-table .rec { background: rgba(201,107,59,0.06); }
+    .flight-table .rec { background: var(--accent-dim); }
     .flight-table .rec td:first-child::after {
       content: ' \2605'; color: var(--accent); font-size: 11px;
     }
     .flight-table .badge {
       display: inline-block; font-size: 10px; font-weight: 700;
       padding: 2px 8px; border-radius: 999px;
-      background: var(--accent-soft); color: var(--accent);
+      background: var(--accent-dim); color: var(--accent);
     }
 
     /* ── OVERVIEW MAP ── */
     .overview-map {
-      width: 100%; height: 360px; border-radius: 14px;
-      border: 1px solid var(--border); margin-top: 16px; z-index: 0;
+      width: 100%; height: 360px; border-radius: var(--radius);
+      border: 1px solid var(--glass-border); margin-top: 16px; z-index: 0;
     }
 
     /* ── FOOTER ── */
     footer {
-      text-align: center; font-size: 12px; color: var(--text-dim);
-      padding: 24px 20px 40px; border-top: 1px solid var(--border);
+      text-align: center; font-size: 12px; color: var(--text-tertiary);
+      padding: 24px 20px 40px; border-top: 1px solid var(--glass-border);
       max-width: 820px; margin: 0 auto;
     }
 
@@ -269,14 +315,38 @@
     /* ── LEAFLET CUSTOM MARKERS ── */
     .custom-marker {
       display: flex; align-items: center; justify-content: center;
-      width: 30px; height: 30px; border-radius: 8px;
-      font-family: 'JetBrains Mono', monospace; font-size: 13px;
+      width: 30px; height: 30px; border-radius: 10px;
+      font-family: 'JetBrains Mono', monospace; font-size: 12px;
       font-weight: 700; color: #fff;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-      border: 2px solid #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4), 0 0 20px rgba(0,0,0,0.2);
+      border: 2px solid rgba(255,255,255,0.3);
     }
-    .leaflet-popup-content { font-family: 'Instrument Sans', sans-serif; font-size: 13px; }
+    .leaflet-popup-content-wrapper {
+      background: rgba(30,30,30,0.95) !important;
+      border: 1px solid rgba(255,255,255,0.15) !important;
+      border-radius: 12px !important;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5) !important;
+    }
+    .leaflet-popup-content {
+      font-family: 'Inter', sans-serif; font-size: 13px;
+      color: rgba(255,255,255,0.9) !important; margin: 10px 14px !important;
+    }
     .leaflet-popup-content strong { font-weight: 600; }
+    .leaflet-popup-tip { background: rgba(30,30,30,0.95) !important; }
+
+    /* Dark map tiles filter */
+    .leaflet-tile-pane { filter: brightness(0.7) contrast(1.1) saturate(0.3) hue-rotate(180deg) invert(1); }
+    .leaflet-control-zoom a {
+      background: rgba(30,30,30,0.9) !important;
+      color: rgba(255,255,255,0.8) !important;
+      border-color: rgba(255,255,255,0.15) !important;
+    }
+    .leaflet-control-attribution {
+      background: rgba(0,0,0,0.6) !important;
+      color: rgba(255,255,255,0.3) !important;
+      font-size: 9px !important;
+    }
+    .leaflet-control-attribution a { color: rgba(255,255,255,0.4) !important; }
   </style>
 </head>
 <body>
@@ -331,9 +401,9 @@
     <section class="section" id="flights">
       <div class="section-label">All SQ options</div>
       <h2 class="section-title">Singapore &harr; Bali flights</h2>
-      <p style="font-size:14px;color:var(--text-dim);margin-bottom:14px;">All Singapore Airlines nonstop flights on this route. Starred rows are the recommended picks.</p>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:14px;">All Singapore Airlines nonstop flights on this route. Starred rows are the recommended picks.</p>
 
-      <h3 style="font-size:14px;font-weight:700;margin-bottom:8px;">SIN &rarr; DPS (Outbound Apr 19)</h3>
+      <h3 style="font-size:14px;font-weight:600;margin-bottom:8px;">SIN &rarr; DPS (Outbound Apr 19)</h3>
       <div class="flight-table-wrap" style="margin-bottom:20px;">
         <table class="flight-table">
           <thead><tr><th>Flight</th><th>Depart</th><th>Arrive</th><th>Duration</th><th>Aircraft</th></tr></thead>
@@ -348,7 +418,7 @@
         </table>
       </div>
 
-      <h3 style="font-size:14px;font-weight:700;margin-bottom:8px;">DPS &rarr; SIN (Return Apr 23)</h3>
+      <h3 style="font-size:14px;font-weight:600;margin-bottom:8px;">DPS &rarr; SIN (Return Apr 23)</h3>
       <div class="flight-table-wrap">
         <table class="flight-table">
           <thead><tr><th>Flight</th><th>Depart</th><th>Arrive</th><th>Duration</th><th>Aircraft</th></tr></thead>
@@ -386,11 +456,11 @@
 
       <div id="map-overview" class="overview-map"></div>
       <div class="map-legend">
-        <div class="map-legend-item"><div class="map-legend-dot" style="background:#c96b3b;"></div> Hotel</div>
-        <div class="map-legend-item"><div class="map-legend-dot" style="background:#196d74;"></div> Wake Park</div>
-        <div class="map-legend-item"><div class="map-legend-dot" style="background:#437154;"></div> Airport</div>
-        <div class="map-legend-item"><div class="map-legend-dot" style="background:#a77b2d;"></div> Jimbaran Bay</div>
-        <div class="map-legend-item"><div class="map-legend-dot" style="background:#6a5a7a;"></div> Sanur spots</div>
+        <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--orange);"></div> Hotel</div>
+        <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--accent);"></div> Wake Park</div>
+        <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--green);"></div> Airport</div>
+        <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--purple);"></div> Jimbaran Bay</div>
+        <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--teal);"></div> Sanur spots</div>
       </div>
     </section>
 
@@ -480,7 +550,7 @@
             </li>
             <li>
               <div class="sched-marker">B</div>
-              <div class="sched-content"><strong>Wake board session #1 at <a href="https://www.google.com/maps/search/?api=1&query=Bali+Wake+Park" target="_blank">Bali Wake Park</a></strong><div class="sched-note">IDR 500k day pass. Book the 9&ndash;11am slot. ~20 min drive from Sanur. <a href="https://api.whatsapp.com/send/?phone=%2B6289656801251&text&type=phone_number&app_absent=0" target="_blank" style="color:var(--sea);font-weight:600;">WhatsApp to book</a></div></div>
+              <div class="sched-content"><strong>Wake board session #1 at <a href="https://www.google.com/maps/search/?api=1&query=Bali+Wake+Park" target="_blank">Bali Wake Park</a></strong><div class="sched-note">IDR 500k day pass. Book the 9&ndash;11am slot. ~20 min drive from Sanur. <a href="https://api.whatsapp.com/send/?phone=%2B6289656801251&text&type=phone_number&app_absent=0" target="_blank" style="color:var(--green);font-weight:600;">WhatsApp to book</a></div></div>
               <div class="sched-time">09:00 &ndash; 11:00</div>
             </li>
             <li>
@@ -534,7 +604,7 @@
             </li>
             <li>
               <div class="sched-marker">B</div>
-              <div class="sched-content"><strong>Wake board session #2 at <a href="https://www.google.com/maps/search/?api=1&query=Bali+Wake+Park" target="_blank">Bali Wake Park</a></strong><div class="sched-note">Same drill. Morning session, push harder this time. <a href="https://api.whatsapp.com/send/?phone=%2B6289656801251&text&type=phone_number&app_absent=0" target="_blank" style="color:var(--sea);font-weight:600;">WhatsApp to book</a></div></div>
+              <div class="sched-content"><strong>Wake board session #2 at <a href="https://www.google.com/maps/search/?api=1&query=Bali+Wake+Park" target="_blank">Bali Wake Park</a></strong><div class="sched-note">Same drill. Morning session, push harder this time. <a href="https://api.whatsapp.com/send/?phone=%2B6289656801251&text&type=phone_number&app_absent=0" target="_blank" style="color:var(--green);font-weight:600;">WhatsApp to book</a></div></div>
               <div class="sched-time">09:00 &ndash; 11:00</div>
             </li>
             <li>
@@ -588,7 +658,7 @@
             </li>
             <li>
               <div class="sched-marker">B</div>
-              <div class="sched-content"><strong>Wake board session #3 at <a href="https://www.google.com/maps/search/?api=1&query=Bali+Wake+Park" target="_blank">Bali Wake Park</a></strong><div class="sched-note">Last session. Leave it all out there. <a href="https://api.whatsapp.com/send/?phone=%2B6289656801251&text&type=phone_number&app_absent=0" target="_blank" style="color:var(--sea);font-weight:600;">WhatsApp to book</a></div></div>
+              <div class="sched-content"><strong>Wake board session #3 at <a href="https://www.google.com/maps/search/?api=1&query=Bali+Wake+Park" target="_blank">Bali Wake Park</a></strong><div class="sched-note">Last session. Leave it all out there. <a href="https://api.whatsapp.com/send/?phone=%2B6289656801251&text&type=phone_number&app_absent=0" target="_blank" style="color:var(--green);font-weight:600;">WhatsApp to book</a></div></div>
               <div class="sched-time">09:00 &ndash; 11:00</div>
             </li>
             <li>
@@ -673,7 +743,7 @@
     <section class="section" id="eats">
       <div class="section-label">Quick reference</div>
       <h2 class="section-title">Your eat &amp; drink list</h2>
-      <p style="font-size:14px;color:var(--text-dim);margin-bottom:14px;">Already slotted into the daily plan above. This is just the full list for quick access.</p>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:14px;">Already slotted into the daily plan above. This is just the full list for quick access.</p>
 
       <div style="display:grid;gap:10px;">
         <div class="day-meta-box"><div class="day-meta-label">Brunch / Coffee</div><div class="day-meta-value" style="font-size:13px;font-weight:400;line-height:1.7;">
@@ -715,8 +785,8 @@
         </div></div>
         <div class="day-meta-box"><div class="day-meta-label">Reserve now</div><div class="day-meta-value" style="font-size:13px;font-weight:400;line-height:1.7;">
           Flights &middot; Hotel &middot; 3&times; Bali Wake Park sessions &middot; Airport transfer<br>
-          <a href="https://api.whatsapp.com/send/?phone=%2B6289656801251&text&type=phone_number&app_absent=0" target="_blank" style="color:var(--sea);font-weight:600;font-size:12px;">WhatsApp Bali Wake Park / Surf School (+62 896-5680-1251)</a><br>
-          <em style="color:var(--text-dim);font-size:12px;">Don't pre-book every dinner and coffee. Just the backbone.</em>
+          <a href="https://api.whatsapp.com/send/?phone=%2B6289656801251&text&type=phone_number&app_absent=0" target="_blank" style="color:var(--green);font-weight:600;font-size:12px;">WhatsApp Bali Wake Park / Surf School (+62 896-5680-1251)</a><br>
+          <em style="color:var(--text-tertiary);font-size:12px;">Don't pre-book every dinner and coffee. Just the backbone.</em>
         </div></div>
       </div>
     </section>
@@ -755,11 +825,12 @@
 
     // Color palette for markers
     const COLORS = {
-      sea:    '#196d74',
-      accent: '#c96b3b',
-      leaf:   '#437154',
-      gold:   '#a77b2d',
-      purple: '#6a5a7a',
+      accent: '#0a84ff',
+      orange: '#ff9f0a',
+      green:  '#30d158',
+      purple: '#bf5af2',
+      pink:   '#ff375f',
+      teal:   '#64d2ff',
     };
 
     function makeIcon(label, color) {
@@ -780,7 +851,7 @@
 
     function addRoute(map, points, color) {
       L.polyline(points, {
-        color: color, weight: 2.5, opacity: 0.5,
+        color: color, weight: 2, opacity: 0.6,
         dashArray: '6, 8',
       }).addTo(map);
     }
@@ -808,57 +879,57 @@
 
     // ── Overview Map ──
     createMap('map-overview', [
-      { pos: LOC.airport,  label: '✈', color: COLORS.leaf,   popup: 'DPS Airport' },
-      { pos: LOC.palette,  label: 'H', color: COLORS.accent, popup: 'Palette Signature Hotel (base)' },
-      { pos: LOC.wakePark, label: 'W', color: COLORS.sea,    popup: 'Bali Wake Park' },
-      { pos: LOC.jimbaran, label: 'J', color: COLORS.gold,   popup: 'Jimbaran Bay' },
-      { pos: LOC.promenade,label: 'S', color: COLORS.purple, popup: 'Sanur Beach (centre)' },
+      { pos: LOC.airport,   label: '✈', color: COLORS.green,  popup: 'DPS Airport' },
+      { pos: LOC.palette,   label: 'H', color: COLORS.orange, popup: 'Palette Signature Hotel (base)' },
+      { pos: LOC.wakePark,  label: 'W', color: COLORS.accent, popup: 'Bali Wake Park' },
+      { pos: LOC.jimbaran,  label: 'J', color: COLORS.purple, popup: 'Jimbaran Bay' },
+      { pos: LOC.promenade, label: 'S', color: COLORS.teal,   popup: 'Sanur Beach (centre)' },
     ]);
 
     // ── Day 1 Map ──
     createMap('map-day1', [
-      { pos: LOC.airport, label: 'A', color: COLORS.sea, popup: 'A · DPS Airport (land 08:55)' },
-      { pos: LOC.palette, label: 'B', color: COLORS.sea, popup: 'B · Palette Signature Hotel' },
-      { pos: LOC.genius,  label: 'C', color: COLORS.sea, popup: 'C · Genius Cafe (lunch)' },
-      { pos: LOC.promenade, label: 'D', color: COLORS.sea, popup: 'D · Sanur Beach Promenade' },
-      { pos: LOC.massimo, label: 'E', color: COLORS.sea, popup: 'E · Massimo (dinner)' },
-    ], COLORS.sea);
+      { pos: LOC.airport,   label: 'A', color: COLORS.accent, popup: 'A · DPS Airport (land 08:55)' },
+      { pos: LOC.palette,   label: 'B', color: COLORS.accent, popup: 'B · Palette Signature Hotel' },
+      { pos: LOC.genius,    label: 'C', color: COLORS.accent, popup: 'C · Genius Cafe (lunch)' },
+      { pos: LOC.promenade, label: 'D', color: COLORS.accent, popup: 'D · Sanur Beach Promenade' },
+      { pos: LOC.massimo,   label: 'E', color: COLORS.accent, popup: 'E · Massimo (dinner)' },
+    ], COLORS.accent);
 
     // ── Day 2 Map ──
     createMap('map-day2', [
-      { pos: LOC.palette,  label: 'A', color: COLORS.accent, popup: 'A · Palette Hotel (breakfast)' },
-      { pos: LOC.wakePark, label: 'B', color: COLORS.accent, popup: 'B · Bali Wake Park (session #1)' },
-      { pos: LOC.genius,   label: 'C', color: COLORS.accent, popup: 'C · Genius Cafe (recovery lunch)' },
-      { pos: LOC.mertasari,label: 'D', color: COLORS.accent, popup: 'D · Mertasari Beach (chill)' },
-      { pos: LOC.tandjung, label: 'E', color: COLORS.accent, popup: 'E · Tandjung Sari (dinner)' },
-    ], COLORS.accent);
+      { pos: LOC.palette,   label: 'A', color: COLORS.orange, popup: 'A · Palette Hotel (breakfast)' },
+      { pos: LOC.wakePark,  label: 'B', color: COLORS.orange, popup: 'B · Bali Wake Park (session #1)' },
+      { pos: LOC.genius,    label: 'C', color: COLORS.orange, popup: 'C · Genius Cafe (recovery lunch)' },
+      { pos: LOC.mertasari, label: 'D', color: COLORS.orange, popup: 'D · Mertasari Beach (chill)' },
+      { pos: LOC.tandjung,  label: 'E', color: COLORS.orange, popup: 'E · Tandjung Sari (dinner)' },
+    ], COLORS.orange);
 
     // ── Day 3 Map ──
     createMap('map-day3', [
-      { pos: LOC.palette,  label: 'A', color: COLORS.leaf, popup: 'A · Palette Hotel (breakfast)' },
-      { pos: LOC.wakePark, label: 'B', color: COLORS.leaf, popup: 'B · Bali Wake Park (session #2)' },
-      { pos: LOC.lilla,    label: 'C', color: COLORS.leaf, popup: 'C · Lilla Warung (lunch)' },
-      { pos: LOC.jimbaran, label: 'D', color: COLORS.leaf, popup: 'D · Jimbaran Bay (sunset)' },
-      { pos: LOC.jimbaran, label: 'E', color: COLORS.leaf, popup: 'E · Seafood dinner at Jimbaran' },
-    ], COLORS.leaf);
+      { pos: LOC.palette,   label: 'A', color: COLORS.green, popup: 'A · Palette Hotel (breakfast)' },
+      { pos: LOC.wakePark,  label: 'B', color: COLORS.green, popup: 'B · Bali Wake Park (session #2)' },
+      { pos: LOC.lilla,     label: 'C', color: COLORS.green, popup: 'C · Lilla Warung (lunch)' },
+      { pos: LOC.jimbaran,  label: 'D', color: COLORS.green, popup: 'D · Jimbaran Bay (sunset)' },
+      { pos: LOC.jimbaran,  label: 'E', color: COLORS.green, popup: 'E · Seafood dinner at Jimbaran' },
+    ], COLORS.green);
 
     // ── Day 4 Map ──
     createMap('map-day4', [
-      { pos: LOC.palette,  label: 'A', color: COLORS.gold, popup: 'A · Palette Hotel (breakfast)' },
-      { pos: LOC.wakePark, label: 'B', color: COLORS.gold, popup: 'B · Bali Wake Park (session #3)' },
-      { pos: [-8.690, 115.263], label: 'C', color: COLORS.gold, popup: 'C · Spa / massage in Sanur' },
-      { pos: LOC.rue,      label: 'D', color: COLORS.gold, popup: 'D · Rue Bali / Byrd House' },
-      { pos: LOC.jalapeno, label: 'E', color: COLORS.gold, popup: 'E · Jalapeño (dinner)' },
-    ], COLORS.gold);
+      { pos: LOC.palette,   label: 'A', color: COLORS.purple, popup: 'A · Palette Hotel (breakfast)' },
+      { pos: LOC.wakePark,  label: 'B', color: COLORS.purple, popup: 'B · Bali Wake Park (session #3)' },
+      { pos: [-8.690, 115.263], label: 'C', color: COLORS.purple, popup: 'C · Spa / massage in Sanur' },
+      { pos: LOC.rue,       label: 'D', color: COLORS.purple, popup: 'D · Rue Bali / Byrd House' },
+      { pos: LOC.jalapeno,  label: 'E', color: COLORS.purple, popup: 'E · Jalapeño (dinner)' },
+    ], COLORS.purple);
 
     // ── Day 5 Map ──
     createMap('map-day5', [
-      { pos: LOC.sala,     label: 'A', color: COLORS.purple, popup: 'A · Sala Bistro (breakfast)' },
-      { pos: LOC.karang,   label: 'B', color: COLORS.purple, popup: 'B · Karang Beach (last swim)' },
-      { pos: LOC.moreno,   label: 'C', color: COLORS.purple, popup: 'C · Moreno Beach (lunch)' },
-      { pos: LOC.palette,  label: 'D', color: COLORS.purple, popup: 'D · Palette Hotel (pack up)' },
-      { pos: LOC.airport,  label: 'E', color: COLORS.purple, popup: 'E · DPS Airport (SQ 945 at 20:00)' },
-    ], COLORS.purple);
+      { pos: LOC.sala,    label: 'A', color: COLORS.pink, popup: 'A · Sala Bistro (breakfast)' },
+      { pos: LOC.karang,  label: 'B', color: COLORS.pink, popup: 'B · Karang Beach (last swim)' },
+      { pos: LOC.moreno,  label: 'C', color: COLORS.pink, popup: 'C · Moreno Beach (lunch)' },
+      { pos: LOC.palette, label: 'D', color: COLORS.pink, popup: 'D · Palette Hotel (pack up)' },
+      { pos: LOC.airport, label: 'E', color: COLORS.pink, popup: 'E · DPS Airport (SQ 945 at 20:00)' },
+    ], COLORS.pink);
 
     // ── Nav active state ──
     document.addEventListener('DOMContentLoaded', () => {
